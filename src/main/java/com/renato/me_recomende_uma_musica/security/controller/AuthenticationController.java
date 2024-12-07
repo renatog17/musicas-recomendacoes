@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.renato.me_recomende_uma_musica.domain.UserProfile;
+import com.renato.me_recomende_uma_musica.repository.UserProfileRepository;
 import com.renato.me_recomende_uma_musica.security.controller.dto.AuthenticationDTO;
 import com.renato.me_recomende_uma_musica.security.controller.dto.LoginResponseDTO;
 import com.renato.me_recomende_uma_musica.security.controller.dto.RegisterDTO;
@@ -27,6 +29,8 @@ public class AuthenticationController {
 	private UserRepository userRepository;
 	@Autowired
 	private TokenService tokenService;
+	@Autowired
+	private UserProfileRepository userProfileRepository;
 	
 	@PostMapping("/login")
 	public ResponseEntity login(@RequestBody AuthenticationDTO data) {
@@ -42,8 +46,11 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().build();
 		String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 		User newUser = new User(data.login(), encryptedPassword, data.role());
-		
 		this.userRepository.save(newUser);
+		
+		UserProfile userProfile = new UserProfile();
+		userProfile.setUser(newUser);
+		this.userProfileRepository.save(userProfile);
 		
 		return ResponseEntity.ok().build();
 	}

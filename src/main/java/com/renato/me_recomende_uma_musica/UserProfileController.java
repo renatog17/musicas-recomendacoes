@@ -29,6 +29,7 @@ public class UserProfileController {
 	public ResponseEntity<UserProfile> obterListaMusicas(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) userRepository.findByLogin(authentication.getName());
-		UserProfile userProfile = userProfileRepository.//criar o find by user id
+		//UserProfile userProfile = userProfileRepository.//criar o find by user id
+		return null;
 	}
 }
