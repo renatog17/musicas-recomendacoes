@@ -29,4 +29,8 @@ public class UserProfile {
 	private List <String> musicas;
 	@OneToOne
 	private User user;
+	
+	public void recomendarMusica(String musica) {
+		this.musicas.add(musica);
+	}
 }

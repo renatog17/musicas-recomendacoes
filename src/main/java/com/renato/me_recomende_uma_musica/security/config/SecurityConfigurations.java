@@ -29,6 +29,7 @@ public class SecurityConfigurations {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+						.requestMatchers(HttpMethod.POST, "/user-musicas/recomendar/{userId}").permitAll()
 //						.requestMatchers(HttpMethod.GET, "/categoria").hasRole("ADMIN")
 //						.requestMatchers(HttpMethod.GET, "/categoria/*").hasRole("ADMIN")
 						.anyRequest().authenticated()
